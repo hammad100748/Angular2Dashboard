@@ -44,12 +44,12 @@ router.post('/user',function (req,res) {
 });
 
 router.get('/dashboard/chart',function (req,res) {
-  var queryString = 'SELECT SERIAL,Current_Day_Energy FROM danfossinverterdata GROUP BY SERIAL';
 
-  connection.query(queryString,function(err, rows, fields) {
+  var queryString = 'SELECT dev.Serial FROM Customers cus ,Sites site,Devices dev WHERE cus.Name = ? AND cus.ID=site.Owner AND site.ID=dev.Details';
+  customerName="Padleys";
+  connection.query(queryString,[customerName],function(err, rows, fields) {
     if (err) throw err;
       res.json(rows);
-
   });
 });
 
