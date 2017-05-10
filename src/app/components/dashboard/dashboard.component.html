@@ -1,7 +1,7 @@
 <section class="widget">
   <header>
     <h4>
-      Traffic Sources
+      Inverters Today
       <small>
         One month tracking
       </small>
@@ -16,23 +16,23 @@
     <table class="table table-striped table-lg mt-sm mb-0 sources-table">
       <thead>
       <tr>
-        <th class="source-col-header">Source</th>
-        <th>Amount</th>
-        <th>Change</th>
-        <th class="hidden-xs">Percent.,%</th>
-        <th>Target</th>
+        <th class="source-col-header">Site</th>
+        <th class="source-col-header">Serial</th>
+        <th>Current Day Energy</th>
+        <th>Annual Change</th>
         <th class="chart-col-header hidden-xs">Trend</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let d of data">
-        <td><span class="label label-important">{{d.Serial}}</span></td>
-        <td>713</td>
+        <td><span class="label label-important">{{d.Site}}</span></td>
+        <td>{{d.Serial}}</td>
         <td><strong class="color-green">+53</strong></td>
         <td class="hidden-xs">+12</td>
-        <td>900</td>
-        <td class="chart-cell hidden-xs">
-          <div id="direct-trend"></div>
+        <td>
+          <!--<div id="direct-trend">-->
+            <app-graph></app-graph>
+          <!--</div>-->
         </td>
       </tr>
       </tbody>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DashboardService} from "../../services/DashboardService/dashboard.service";
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +8,7 @@ import {DashboardService} from "../../services/DashboardService/dashboard.servic
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-   private data:any;
+  data=[];
   constructor(private _dashService:DashboardService) { }
   // data=[
   //   { 'name':'ali', 'age':'21'},
@@ -19,9 +20,20 @@ export class DashboardComponent implements OnInit {
     this._dashService.getInitialData()
       .subscribe(
         resultData => {
-          // Emit list event
-          this.data=resultData;
-          console.log(this.data);
+          resultData.forEach(element=>{
+            this._dashService.getDeviceData(element.Serial)
+              .subscribe(result=>{
+                if(result){
+                  var curData={
+                    'Serial':element.Serial,
+                    'Site':element.Name,
+                    'Values':result
+                  };
+                  this.data.push(curData);
+                }
+              });
+          });
+
         },
         err => {
           // Log errors if any

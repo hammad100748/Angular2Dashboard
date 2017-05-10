@@ -10,18 +10,22 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { NavbarComponent } from './components/layouts/navbar/navbar.component';
 import {UserService} from "./services/UserService/user.service";
 import {DashboardService} from "./services/DashboardService/dashboard.service";
+import { ChartsModule } from 'ng2-charts';
+import { GraphComponent } from './components/graph/graph.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     LoginPageComponent,
-    NavbarComponent
+    NavbarComponent,
+    GraphComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    ChartsModule,
     AppRoutingModule
   ],
   providers: [UserService,DashboardService],

@@ -45,9 +45,20 @@ router.post('/user',function (req,res) {
 
 router.get('/dashboard/chart',function (req,res) {
 
-  var queryString = 'SELECT dev.Serial FROM Customers cus ,Sites site,Devices dev WHERE cus.Name = ? AND cus.ID=site.Owner AND site.ID=dev.Details';
+  var queryString = 'SELECT dev.Serial,site.Name FROM Customers cus ,Sites site,Devices dev WHERE cus.Name = ? AND cus.ID=site.Owner AND site.ID=dev.Details';
   customerName="Padleys";
   connection.query(queryString,[customerName],function(err, rows, fields) {
+    if (err) throw err;
+      res.json(rows);
+  });
+});
+
+
+router.post('/dashboard/devices',function (req,res) {
+
+  var queryString = "SELECT Current_Day_Energy FROM danfossinverterdata WHERE SERIAL = ? ORDER BY TIMESTAMP DESC";
+
+  connection.query(queryString,[req.body.serial],function(err, rows, fields) {
     if (err) throw err;
       res.json(rows);
   });

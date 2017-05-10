@@ -17,5 +17,18 @@ export class DashboardService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  getDeviceData(serial){
+
+    let bodyString = JSON.stringify({serial}); // Stringify payload
+    let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+    let options       = new RequestOptions({ headers: headers });
+    
+    return this._http.post('/api/dashboard/devices',bodyString,options)
+    // ...and calling .json() on the response to return data
+      .map((res:Response) => res.json())
+      //...errors if any
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
 
 }
